@@ -3,3 +3,10 @@
 
 # Dependency directories
 node_modules
+
+# Secrets
+.env
+
+#Hardhat files
+cache
+artifacts
