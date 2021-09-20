@@ -1,0 +1,5 @@
+# Temp OS files
+.DS_Store
+
+# Dependency directories
+node_modules
