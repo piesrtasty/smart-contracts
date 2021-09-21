@@ -20,6 +20,11 @@ Run test suite
 npx hardhat test
 ```
 
+Run local hardhat network
+```
+npx hardhat node
+```
+
 Deploy contracts
 ```
 npx hardhat run scripts/deploy.js
