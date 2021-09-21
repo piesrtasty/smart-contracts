@@ -13,13 +13,15 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
+  const HOPPER_ADDRESS = process.env.HOPPER_ADDRESS;
+
+  const DEME = await hre.ethers.getContractFactory("DEME");
+  const deme = await DEME.deploy(HOPPER_ADDRESS, HOPPER_ADDRESS);
+
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  await deme.deployed();
 
-  await greeter.deployed();
-
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("DEME token contract deployed to:", deme.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
