@@ -30,6 +30,19 @@ Deploy contracts
 npx hardhat run scripts/deploy.js
 ```
 
+# Setup Merkle Distributor
+
+Convert claim data to generate the merkle input
+```
+npm run convert-claim-data
+```
+
+Generate the merkle root and proofs
+```
+npm run generate-merkle-root
+```
+
+
 # Etherscan verification
 
 To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
