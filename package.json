@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input data/merkle-input.json",
-    "convert-claim-data": "node scripts/claim-data-csv-to-json.js"
+    "convert-claim-data": "node scripts/claim-data-csv-to-json.js",
+    "generate-merkle-root": "ts-node scripts/generate-merkle-root.ts --input data/merkle-input.json >> data/merkle-output.json",
+    "verify-merkle-root": "ts-node scripts/verify-merkle-root.ts --input data/merkle-output.json"
   },
   "keywords": [],
   "author": "",
