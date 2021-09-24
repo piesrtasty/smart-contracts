@@ -14,6 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   const HOPPER_ADDRESS = process.env.HOPPER_ADDRESS;
+  const MERKLE_ROOT = process.env.MERKLE_ROOT;
 
   const DEME = await hre.ethers.getContractFactory("DEME");
   const deme = await DEME.deploy(HOPPER_ADDRESS, HOPPER_ADDRESS);
