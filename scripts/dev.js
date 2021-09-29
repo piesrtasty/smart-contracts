@@ -48,15 +48,31 @@ async function main() {
 
   console.log("TokenDistributor contract deployed to:", distributor.address);
 
-  await deme.connect(hopperAccount).transfer(distributor.address, 10000);
+  await deme
+    .connect(hopperAccount)
+    .transfer(distributor.address, "0x52B7D2DCC80CD2E4000000");
+
+  const hopperBalance = await deme.balanceOf(hopperAccount.address);
+  console.log("hopperBalance", hopperBalance);
+
+  let claimant1Balance = await deme.balanceOf(claimant1Acct.address);
+  console.log("claimant1Balance", claimant1Balance);
 
   const index = claims[claimant1Acct.address].index;
   const proof = claims[claimant1Acct.address].proof;
+  console.log("index", index);
   console.log("proof", proof);
   //   console.log("index", index);
   await distributor
     .connect(claimant1Acct)
-    .claim(index, claimant1Acct.address, claimant1Amt, proof);
+    .claim(index, claimant1Acct.address, "0x0caf67003701680000", proof);
+
+  claimant1Balance = await deme.balanceOf(claimant1Acct.address);
+  console.log("claimant1Balance", claimant1Balance);
+
+  //   await distributor
+  //     .connect(claimant1Acct)
+  //     .claim(index, claimant1Acct.address, "234000000000000000000", proof);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
