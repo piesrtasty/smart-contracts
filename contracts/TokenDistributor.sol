@@ -42,18 +42,21 @@ contract TokenDistributor {
         uint256 amount,
         bytes32[] calldata merkleProof
     ) external {
-        require(!isClaimed(index), "TokenDistributor: Drop already claimed.");
+        require(
+            !isClaimed(index),
+            "PubTokenDistributor: Drop already claimed."
+        );
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
         require(
             MerkleProof.verify(merkleProof, merkleRoot, node),
-            "TokenDistributor: Invalid proof."
+            "PubTokenDistributor: Invalid proof."
         );
         // Mark it claimed and send the token.
         _setClaimed(index);
         require(
             IERC20(token).transfer(account, amount),
-            "TokenDistributor: Transfer failed."
+            "PubTokenDistributor: Transfer failed."
         );
     }
 }
