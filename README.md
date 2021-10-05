@@ -1,4 +1,4 @@
-# Decrypt Smart Contracts
+# Smart Contracts
 
 Install dependencies
 ```
