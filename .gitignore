@@ -10,3 +10,6 @@ node_modules
 #Hardhat files
 cache
 artifacts
+
+# Open Zeppelin development upgrades config
+.openzeppelin/unknown-*.json

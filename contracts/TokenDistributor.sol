@@ -1,9 +1,9 @@
 // contracts/TokenDistributor.sol
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.2;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/cryptography/MerkleProofUpgradeable.sol";
 
 contract TokenDistributor {
     address public token;
@@ -49,13 +49,13 @@ contract TokenDistributor {
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
         require(
-            MerkleProof.verify(merkleProof, merkleRoot, node),
+            MerkleProofUpgradeable.verify(merkleProof, merkleRoot, node),
             "PubTokenDistributor: Invalid proof."
         );
         // Mark it claimed and send the token.
         _setClaimed(index);
         require(
-            IERC20(token).transfer(account, amount),
+            IERC20Upgradeable(token).transfer(account, amount),
             "PubTokenDistributor: Transfer failed."
         );
     }

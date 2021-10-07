@@ -1,7 +1,6 @@
 const { expect } = require("chai");
 
-const hre = require("hardhat");
-const ethers = hre.ethers;
+const { ethers, upgrades } = require("hardhat");
 const BigNumber = ethers.BigNumber;
 
 const AccountAmountMerkleTree = require("./account-amount-merkle-tree.js");
@@ -59,11 +58,13 @@ async function main() {
       claimant2Address = claimant2Data.account;
 
       // Deploy token contract
-      const TokenContract = await hre.ethers.getContractFactory("PUB");
-      token = await TokenContract.deploy();
+      const TokenContract = await ethers.getContractFactory("PUB");
+
+      token = await upgrades.deployProxy(TokenContract);
+      await token.deployed();
 
       // Deploy TokenDistributor contract
-      const DistributorContract = await hre.ethers.getContractFactory(
+      const DistributorContract = await ethers.getContractFactory(
         "TokenDistributor"
       );
       distributor = await DistributorContract.deploy(token.address, merkleRoot);
