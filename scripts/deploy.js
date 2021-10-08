@@ -3,7 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-const hre = require("hardhat");
+const { ethers, upgrades } = require("hardhat");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -15,16 +15,13 @@ async function main() {
 
   const MERKLE_ROOT = process.env.MERKLE_ROOT;
 
-  const PUB = await hre.ethers.getContractFactory("PUB");
-  const pub = await PUB.deploy();
-
+  const PUB = await ethers.getContractFactory("PUB");
+  const pub = await upgrades.deployProxy(PUB);
   await pub.deployed();
 
   console.log("PUB token contract deployed to:", pub.address);
 
-  const TokenDistributor = await hre.ethers.getContractFactory(
-    "TokenDistributor"
-  );
+  const TokenDistributor = await ethers.getContractFactory("TokenDistributor");
   const distributor = await TokenDistributor.deploy(pub.address, MERKLE_ROOT);
 
   await distributor.deployed();
