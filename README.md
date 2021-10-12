@@ -32,6 +32,11 @@ npx hardhat run scripts/deploy.js
 
 # Setup Merkle Distributor
 
+Generate claim data file
+```
+npm run generate-claim-data
+```
+
 Convert claim data to generate the merkle input
 ```
 npm run convert-claim-data
