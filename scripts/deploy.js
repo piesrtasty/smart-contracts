@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const { ethers, upgrades } = require("hardhat");
+const BigNumber = ethers.BigNumber;
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -13,7 +14,8 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  const MERKLE_ROOT = process.env.MERKLE_ROOT;
+  const MERKLE_ROOT =
+    "0x11bcf518c8005c32976dc757e1fa7092b75c6f87093929e95a00549c4efc2e41";
 
   const PUB = await ethers.getContractFactory("PUB");
   const pub = await upgrades.deployProxy(PUB);
@@ -25,6 +27,12 @@ async function main() {
   const distributor = await TokenDistributor.deploy(pub.address, MERKLE_ROOT);
 
   await distributor.deployed();
+
+  // Transfer tokens to distributor
+  // 4.5m total airdrop tokens -> 4_500_000 * 10 ^ 18
+  const AIRDROP_TOKENS = BigNumber.from("4500000000000000000000000");
+  const distributorInitialSupply = AIRDROP_TOKENS;
+  await pub.transfer(distributor.address, distributorInitialSupply);
 
   console.log("TokenDistributor contract deployed to:", distributor.address);
 }
