@@ -15,7 +15,7 @@ async function main() {
   // await hre.run('compile');
 
   const MERKLE_ROOT =
-    "0x11bcf518c8005c32976dc757e1fa7092b75c6f87093929e95a00549c4efc2e41";
+    "0x7303fa15df153525f19bfb1cd9db0b88db7b738b30ce4f69dd955327500432df";
 
   const PUB = await ethers.getContractFactory("PUB");
   const pub = await upgrades.deployProxy(PUB);
