@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 require("hardhat-ethernal");
 require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-waffle");
@@ -39,6 +38,11 @@ module.exports = {
     },
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    rinkeby: {
+      url: process.env.RINKEBY_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
