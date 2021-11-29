@@ -23,7 +23,7 @@ async function main() {
   describe("Token Distributor", async () => {
     let token,
       accounts,
-      decrtyptStakeholderAcct,
+      treasury,
       claimant1Index,
       claimant2Index,
       claimant1Amount,
@@ -43,7 +43,7 @@ async function main() {
       tree = new AccountAmountMerkleTree(accountClaimAmounts);
       merkleRoot = tree.getHexRoot();
 
-      decrtyptStakeholderAcct = accounts[0];
+      treasury = accounts[0];
 
       claimant1Index = 10;
       claimant2Index = 11;
@@ -59,7 +59,7 @@ async function main() {
 
       // Deploy token contract
       const TokenContract = await ethers.getContractFactory("PUB");
-      token = await TokenContract.deploy(accounts[0].address);
+      token = await TokenContract.deploy(treasury.address);
 
       // Deploy TokenDistributor contract
       const DistributorContract = await ethers.getContractFactory(
@@ -70,7 +70,7 @@ async function main() {
 
       // Transfer airdrop tokens to distributor
       await token
-        .connect(decrtyptStakeholderAcct)
+        .connect(treasury)
         .transfer(distributor.address, distributorInitialSupply);
     });
 
