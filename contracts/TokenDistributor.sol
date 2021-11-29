@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.2;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/cryptography/MerkleProofUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/structs/BitMapsUpgradeable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 
 contract TokenDistributor {
-    using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
+    using BitMaps for BitMaps.BitMap;
 
     address public token;
     bytes32 public merkleRoot;
 
-    BitMapsUpgradeable.BitMap private claimed;
+    BitMaps.BitMap private claimed;
 
     // This event is triggered whenever a call to #claim succeeds.
     event Claimed(uint256 index, address account, uint256 amount);
@@ -42,13 +42,13 @@ contract TokenDistributor {
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(index, account, amount));
         require(
-            MerkleProofUpgradeable.verify(merkleProof, merkleRoot, node),
+            MerkleProof.verify(merkleProof, merkleRoot, node),
             "PubTokenDistributor: Invalid proof."
         );
         // Mark it claimed and send the token.
         claimed.set(index);
         require(
-            IERC20Upgradeable(token).transfer(account, amount),
+            IERC20(token).transfer(account, amount),
             "PubTokenDistributor: Transfer failed."
         );
         emit Claimed(index, account, amount);

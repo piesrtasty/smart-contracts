@@ -59,9 +59,7 @@ async function main() {
 
       // Deploy token contract
       const TokenContract = await ethers.getContractFactory("PUB");
-
-      token = await upgrades.deployProxy(TokenContract);
-      await token.deployed();
+      token = await TokenContract.deploy(accounts[0].address);
 
       // Deploy TokenDistributor contract
       const DistributorContract = await ethers.getContractFactory(
