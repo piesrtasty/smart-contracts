@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { ethers, upgrades } = require("hardhat");
+const { ethers } = require("hardhat");
 const BigNumber = ethers.BigNumber;
 
 const AccountAmountMerkleTree = require("./account-amount-merkle-tree.js");

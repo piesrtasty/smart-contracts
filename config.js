@@ -1,0 +1,7 @@
+module.exports = {
+  TOTAL_SUPPLY: "100000000",
+  AIRDROP_TOKENS: "4500000",
+  UNLOCK_BEGIN: "",
+  UNLOCK_CLIFF: "",
+  UNLOCK_END: "",
+};

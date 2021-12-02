@@ -33,6 +33,7 @@
     "ethernal": "^0.8.0",
     "ethers": "^5.4.7",
     "hardhat": "^2.6.4",
+    "hardhat-deploy": "^0.9.14",
     "hardhat-ethernal": "^0.3.10",
     "hardhat-gas-reporter": "^1.0.4",
     "prettier": "^2.4.1",
