@@ -1,9 +1,15 @@
+const config = require("../config");
+
 module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const { deploy } = deployments;
-  const { deployer, treasury } = await getNamedAccounts();
+  const { deployer } = await getNamedAccounts();
+  const totalSupply = ethers.BigNumber.from(10)
+    .pow(18)
+    .mul(config.TOTAL_SUPPLY);
+  console.log("totalSupply", totalSupply);
   await deploy("PUBToken", {
     from: deployer,
-    args: [treasury],
+    args: [totalSupply],
     log: true,
   });
 };

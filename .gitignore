@@ -13,3 +13,7 @@ artifacts
 
 # Open Zeppelin development upgrades config
 .openzeppelin/unknown-*.json
+
+# Token allocations
+team-allocations.csv
+investor-allocations.csv
