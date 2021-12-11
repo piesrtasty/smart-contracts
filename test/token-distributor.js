@@ -7,7 +7,6 @@ const accountClaimAmounts = require("./data.json");
 
 const oneToken = ethers.BigNumber.from(10).pow(18);
 
-// const CLAIM_ADJUSTMENT = BigNumber.from("5000000000000000000");
 const claimAdjustment = oneToken.mul("5");
 
 const ELEMENT_NOT_IN_TREE_ERROR = "Element does not exist in Merkle tree";
@@ -35,30 +34,10 @@ describe("Token Distributor", () => {
 
   before(async () => {
     ({ deployer } = await getNamedAccounts());
-    // await deployments.fixture(["PUBToken"]);
-    // await deployments.fixture(["TokenDistributor"]);
     await deployments.fixture(["distribute"]);
     token = await ethers.getContract("PUBToken");
     distributor = await ethers.getContract("TokenDistributor");
-    // Initialize merkle tree from accounts data set
     tree = new AccountAmountMerkleTree(accountClaimAmounts);
-    // console.log("claimant1Index", claimant1Index);
-    // console.log("claimant2Index", claimant2Index);
-    // console.log("claimant1Data", claimant1Data);
-    // claimaint1Index = 10;
-    // claimaint2Index = 11;
-    // claimant1Data = accountClaimAmounts[claimant1Index];
-    // claimant2Data = accountClaimAmounts[claimant2Index];
-    // claimant1Amount = BigNumber.from(claimant1Data.amount);
-    // claimant2Amount = BigNumber.from(claimant2Data.amount);
-    // claimant1Address = claimant1Data.account;
-    // claimant2Address = claimant2Data.account;
-
-    // console.log("tree", tree);
-    // console.log("merkleRoot", merkleRoot);
-
-    // console.log("token", token);
-    // console.log("distributor", distributor.interface.deploy);
   });
 
   beforeEach(async () => {
