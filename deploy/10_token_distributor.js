@@ -6,7 +6,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const pubToken = await ethers.getContract("PUBToken");
   await deploy("TokenDistributor", {
     from: deployer,
-    args: [pubToken.address, config.MERKLE_ROOT],
+    args: [pubToken.address, config.MERKLE_ROOT[network.name]],
     log: true,
   });
 };

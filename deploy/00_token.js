@@ -6,7 +6,6 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
   const totalSupply = ethers.BigNumber.from(10)
     .pow(18)
     .mul(config.TOTAL_SUPPLY);
-  console.log("totalSupply", totalSupply);
   await deploy("PUBToken", {
     from: deployer,
     args: [totalSupply],
