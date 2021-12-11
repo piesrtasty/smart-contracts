@@ -1,6 +1,6 @@
 const { utils } = require("ethers");
 
-const MerkleTreeClass = require("../lib/merkle-tree.js");
+const MerkleTreeClass = require("../../lib/merkle-tree.js");
 const MerkleTree = MerkleTreeClass.default;
 
 /**

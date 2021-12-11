@@ -1,0 +1,24 @@
+const config = require("../config");
+
+module.exports = async ({ getNamedAccounts }) => {
+  const { treasury } = await getNamedAccounts();
+  const pubToken = await ethers.getContract("PUBToken");
+  // Transfer ownership of the token to the treasury
+  try {
+    await pubToken.transferOwnership(treasury);
+    console.log(
+      `Tansferred ownership of PUBToken contract (${pubToken.address}) to Treasury (${treasury})`
+    );
+  } catch (e) {
+    console.log(
+      `Failed to transfer ownership of PUBToken contract (${pubToken.address}) to Treasury (${treasury})`
+    );
+  }
+};
+module.exports.dependencies = [
+  "PUBToken",
+  "TokenDistributor",
+  "TokenLockInvestor",
+  "TokenLockTeam",
+];
+module.exports.tags = ["ownership"];

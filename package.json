@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "hardhat test",
     "generate-claim-data": "node scripts/generate-claim-data.js",
     "convert-claim-data": "node scripts/claim-data-csv-to-json.js",
     "generate-merkle-root": "node scripts/generate-merkle-root.js --input data/merkle-input.json >> data/merkle-output.json",
@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.11",
     "@nomiclabs/hardhat-etherscan": "^2.1.7",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "chai": "^4.3.4",
@@ -31,8 +31,9 @@
     "ethereum-waffle": "^3.4.0",
     "ethereumjs-util": "^7.1.0",
     "ethernal": "^0.8.0",
-    "ethers": "^5.4.7",
+    "ethers": "^5.5.2",
     "hardhat": "^2.6.4",
+    "hardhat-deploy": "^0.9.14",
     "hardhat-ethernal": "^0.3.10",
     "hardhat-gas-reporter": "^1.0.4",
     "prettier": "^2.4.1",
