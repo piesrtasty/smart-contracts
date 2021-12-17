@@ -5,6 +5,10 @@ const { deployments, getNamedAccounts } = require("hardhat");
 const AccountAmountMerkleTree = require("./utils/account-amount-merkle-tree.js");
 const accountClaimAmounts = require("./data.json");
 
+function setNextBlockTimestamp(ts) {
+  return ethers.provider.send("evm_setNextBlockTimestamp", [ts]);
+}
+
 const oneToken = ethers.BigNumber.from(10).pow(18);
 
 const claimAdjustment = oneToken.mul("5");
@@ -263,6 +267,26 @@ describe("Token Distributor", () => {
       expect(
         await token.balanceOf(distributor.address),
         airdropTokens.sub(claimant1Amount).sub(claimant2Amount)
+      );
+    });
+  });
+
+  describe("sweeping tokens", () => {
+    it("should not allow sweeping tokens until the claim period ends", async () => {
+      await expect(distributor.sweep(deployer)).to.be.revertedWith(
+        "PUB: Claim period not yet ended'"
+      );
+    });
+
+    it("should allow sweeping tokens after the claim period ends", async () => {
+      await setNextBlockTimestamp(
+        (await distributor.claimPeriodEnds()).toNumber() + 1
+      );
+      const balanceBefore = await token.balanceOf(deployer);
+      const sweepBalance = await token.balanceOf(distributor.address);
+      await distributor.sweep(deployer);
+      expect(await token.balanceOf(deployer)).to.equal(
+        balanceBefore.add(sweepBalance)
       );
     });
   });
